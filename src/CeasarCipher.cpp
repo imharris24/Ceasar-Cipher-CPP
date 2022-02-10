@@ -1,12 +1,15 @@
 #include<conio.h>
 #include<string>
-
+#include<ctype.h>
 #include "CeasarCipher.h"
 
 string CeasarCipher::Encrypt(string Message, int Shift) {
 	string EncryptedMessage = "\0";
 	for (int i = 0; i < Message.length(); i++) {
-		if (isupper(Message[i])) {
+		if (!isalpha(Message[i])) {
+			EncryptedMessage += Message[i];
+		}
+		else if (isupper(Message[i])) {
 			EncryptedMessage += char(int(Message[i] + Shift - 65) % 26 + 65);
 		}
 		else {
@@ -19,7 +22,10 @@ string CeasarCipher::Decrypt(string Message, int Shift) {
 	string DecryptedMessage = "\0";
 	Shift = 26 - Shift;
 	for (int i = 0; i < Message.length(); i++) {
-		if (isupper(Message[i])) {
+		if (!isalpha(Message[i])) {
+			DecryptedMessage += Message[i];
+		}
+		else if (isupper(Message[i])) {
 			DecryptedMessage += char(int(Message[i] + Shift - 65) % 26 + 65);
 		}
 		else {
